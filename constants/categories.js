@@ -1,4 +1,4 @@
-export default categoryList = [
+const categoryList = [
   'All',
   'Action',
   'Adventure',
@@ -11,3 +11,5 @@ export default categoryList = [
   'Sports',
   'Strategy',
 ];
+
+export default categoryList;

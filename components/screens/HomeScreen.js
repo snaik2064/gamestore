@@ -1,12 +1,38 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import {StatusBar} from 'react-native';
 
 import styled from 'styled-components';
 
 import Text from '../Text';
 import categoryList from '../../constants/categories';
+import games from '../../constants/gameData';
 
 export default function HomeScreen() {
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const gamesRef = useRef();
+
+  const changeCategory = (category) => {
+    gamesRef.current.scrollToOffset({x: 0, y: 0});
+    setSelectedCategory(category);
+  };
+
+  const GameItem = (game) => {
+    return (
+      <Game>
+        <GameCover source={game.cover} />
+        <GameInfo backgroundColor={game.backgroundColor}>
+          <GameImage source={game.cover} />
+          <GameTitle>
+            <Text medium heavy>
+              {game.title}
+            </Text>
+            <Text small>{game.teaser}</Text>
+          </GameTitle>
+        </GameInfo>
+      </Game>
+    );
+  };
+
   return (
     <Container>
       <StatusBar barStyle="light-content" />
@@ -24,15 +50,31 @@ export default function HomeScreen() {
         <Avatar source={require('../../assets/avatar.webp')} />
       </Header>
 
-      <Categories horizontal={true} showsHorizontalScrollIndicator={false}>
+      <Categories horizontal showsHorizontalScrollIndicator={false}>
         {categoryList.map((category, index) => {
           return (
-            <Category key={index}>
-              <CategoryName>{category} </CategoryName>
+            <Category key={index} onPress={() => changeCategory(category)}>
+              <CategoryName
+                selected={selectedCategory === category ? true : false}>
+                {category}{' '}
+              </CategoryName>
+              {selectedCategory === category && <CategoryDot />}
             </Category>
           );
         })}
       </Categories>
+
+      <Games
+        data={games.filter((game) => {
+          return (
+            game.category.includes(selectedCategory) ||
+            selectedCategory === 'All'
+          );
+        })}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({item}) => GameItem(item)}
+        ref={gamesRef}
+      />
     </Container>
   );
 }
@@ -56,7 +98,6 @@ const Avatar = styled.Image`
 
 const Categories = styled.ScrollView`
   margin-top: 32px;
-  flex-grow: 0;
 `;
 
 const Category = styled.TouchableOpacity`
@@ -68,4 +109,42 @@ const Category = styled.TouchableOpacity`
 const CategoryName = styled(Text)`
   color: ${(props) => (props.selected ? '#819ee5' : '#9a9a9a')};
   font-weight: ${(props) => (props.selected ? '700' : '500')};
+`;
+
+const CategoryDot = styled.View`
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+  background-color: #819ee5;
+`;
+
+const Games = styled.FlatList`
+  margin-top: 32px;
+`;
+
+const Game = styled.TouchableOpacity`
+  margin-bottom: 32px;
+`;
+
+const GameCover = styled.Image`
+  height: 300px;
+  width: 100%;
+`;
+
+const GameInfo = styled.View`
+  margin: -50px 16px 0 16px;
+  padding: 16px;
+  border-radius: 12px;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const GameImage = styled.Image`
+  width: 50px;
+  height: 40px;
+  border-radius: 8px;
+`;
+
+const GameTitle = styled.View`
+  margin: 0 24px;
 `;

@@ -1,0 +1,58 @@
+const games = [
+  {
+    id: 1,
+    title: 'Assassins creed',
+    teaser: 'A classic assassination game',
+    description: 'Fugiat do occaecat non pariatur mollit mollit officia.',
+    rating: 4.5,
+    category: ['RPG', 'Action'],
+    age: '15+',
+    cover: require('../assets/as_ody.jpg'),
+    screenshots: [
+      require('../assets/as_ody.jpg'),
+      require('../assets/as_3.jpg'),
+      require('../assets/as_4.jpg'),
+      require('../assets/as_origin.jpg'),
+      require('../assets/as_vallhala.jpeg'),
+    ],
+    backgroundColor: '#824571',
+  },
+  {
+    id: 2,
+    title: 'Assassins creed II',
+    teaser: 'A classic assassination game',
+    description: 'Fugiat do occaecat non pariatur mollit mollit officia.',
+    rating: 4.5,
+    category: ['RPG', 'Indie'],
+    age: '15+',
+    cover: require('../assets/as_vallhala.jpeg'),
+    screenshots: [
+      require('../assets/as_ody.jpg'),
+      require('../assets/as_3.jpg'),
+      require('../assets/as_4.jpg'),
+      require('../assets/as_origin.jpg'),
+      require('../assets/as_vallhala.jpeg'),
+    ],
+    backgroundColor: '#456382',
+  },
+  {
+    id: 3,
+    title: 'Assassins creed III',
+    teaser: 'A classic assassination game',
+    description: 'Fugiat do occaecat non pariatur mollit mollit officia.',
+    rating: 4.5,
+    category: ['Multiplayer', 'Strategy'],
+    age: '15+',
+    cover: require('../assets/as_origin.jpg'),
+    screenshots: [
+      require('../assets/as_ody.jpg'),
+      require('../assets/as_3.jpg'),
+      require('../assets/as_4.jpg'),
+      require('../assets/game_logo.jpg'),
+      require('../assets/as_vallhala.jpeg'),
+    ],
+    backgroundColor: '#825D45',
+  },
+];
+
+export default games;
