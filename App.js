@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 
 import styled from 'styled-components';
@@ -18,6 +10,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './components/screens/HomeScreen';
 import LiveScreen from './components/screens/LiveScreen';
 import ProfileScreen from './components/screens/ProfileScreen';
+import GameScreen from './components/screens/GameScreen';
 
 const AppStack = createStackNavigator();
 const TabNav = createBottomTabNavigator();
@@ -72,8 +65,9 @@ const TabNavScreen = () => {
 const App = () => {
   return (
     <NavigationContainer>
-      <AppStack.Navigator headerMode="none">
+      <AppStack.Navigator mode="modal" headerMode="none">
         <AppStack.Screen name="App" component={TabNavScreen} />
+        <AppStack.Screen name="GameScreen" component={GameScreen} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

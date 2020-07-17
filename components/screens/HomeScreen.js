@@ -7,9 +7,11 @@ import Text from '../Text';
 import categoryList from '../../constants/categories';
 import games from '../../constants/gameData';
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const gamesRef = useRef();
+
+  console.log('navigation', navigation);
 
   const changeCategory = (category) => {
     gamesRef.current.scrollToOffset({x: 0, y: 0});
@@ -18,7 +20,7 @@ export default function HomeScreen() {
 
   const GameItem = (game) => {
     return (
-      <Game>
+      <Game onPress={() => navigation.navigate('GameScreen', {game: game})}>
         <GameCover source={game.cover} />
         <GameInfo backgroundColor={game.backgroundColor}>
           <GameImage source={game.cover} />
