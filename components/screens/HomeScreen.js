@@ -11,8 +11,6 @@ export default function HomeScreen({navigation}) {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const gamesRef = useRef();
 
-  console.log('navigation', navigation);
-
   const changeCategory = (category) => {
     gamesRef.current.scrollToOffset({x: 0, y: 0});
     setSelectedCategory(category);
