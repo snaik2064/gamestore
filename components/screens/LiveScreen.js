@@ -1,5 +1,5 @@
 import React from 'react';
-import {StatusBar} from 'react-native';
+import {Animated, StatusBar} from 'react-native';
 
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -8,6 +8,16 @@ import Text from '../Text';
 import games from '../../constants/gameData';
 
 const LiveScreen = () => {
+  const fadeAnim = React.useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
+
+  React.useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 10000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
+
   return (
     <Container>
       <StatusBar barStyle="light-content" />
@@ -23,20 +33,25 @@ const LiveScreen = () => {
           </SearchIcon>
         </SearchContainer>
       </Header>
-      <SectionContainer>
-        <Text medium bold>
-          Popular Games
-        </Text>
-        <PopularGames horizontal showHorizontalScrollIndicator={false}>
-          {games.map((game, index) => {
-            return (
-              <PopularGameContainer key={index}>
-                <PopularGame source={game.cover} />
-              </PopularGameContainer>
-            );
-          })}
-        </PopularGames>
-      </SectionContainer>
+      <AnimatedContainer
+        style={{
+          opacity: fadeAnim,
+        }}>
+        <SectionContainer>
+          <Text medium bold>
+            Popular Games
+          </Text>
+          <PopularGames horizontal showHorizontalScrollIndicator={false}>
+            {games.map((game, index) => {
+              return (
+                <PopularGameContainer key={index}>
+                  <PopularGame source={game.cover} />
+                </PopularGameContainer>
+              );
+            })}
+          </PopularGames>
+        </SectionContainer>
+      </AnimatedContainer>
       <SectionContainer>
         <LiveGamesTitle>
           <Text medium bold>
@@ -74,6 +89,8 @@ const LiveScreen = () => {
 };
 
 export default LiveScreen;
+
+const AnimatedContainer = styled(Animated.View)``;
 
 const Container = styled.SafeAreaView`
   background-color: #343434;
